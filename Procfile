@@ -1,2 +1,2 @@
 release: python manage.py migrate
-web: gunicorn Rabbit.wsgi
+web: gunicorn rabbit_back.wsgi
