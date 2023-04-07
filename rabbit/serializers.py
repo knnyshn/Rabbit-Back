@@ -17,7 +17,10 @@ class BurrowSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    user = serializers.SerializerMethodField(read_only=True)
+
+    def get_user(self, obj):
+        return obj.id
 
     class Meta:
         model = Post
