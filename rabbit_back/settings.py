@@ -70,7 +70,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'rabbit_back.wsgi.application'
+WSGI_APPLICATION = 'rabbit.wsgi.application'
 
 db_name = 'rabbit_back'
 user = 'rabbit_back_admin'
