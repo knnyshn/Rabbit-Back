@@ -22,16 +22,16 @@ class BurrowSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class PostSerializer(serializers.ModelSerializer):
-    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = Post
-        fields = '__all__'
-
-
 class CommentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comment
+        fields = '__all__'
+
+
+class PostSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Post
         fields = '__all__'
