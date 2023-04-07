@@ -4,6 +4,7 @@ from rest_framework.decorators import action
 from django.contrib.auth import get_user_model
 from .models import Burrow, Post, Comment, Profile
 from .serializers import UserSerializer, BurrowSerializer, PostSerializer, CommentSerializer, ProfileSerializer
+from django.contrib.auth.hashers import make_password
 
 
 # Create your views here.
@@ -13,6 +14,10 @@ User = get_user_model()
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def perform_create(self, serializer):
+        password = make_password(self.request.data['password'])
+        serializer.save(password=password)
 
 
 class ProfileViewSet(viewsets.ModelViewSet):
