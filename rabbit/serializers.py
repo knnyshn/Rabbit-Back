@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Burrow, Post, Comment, TotalCarrots
+from .models import Burrow, Post, Comment, Profile
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['user', 'total_carrots']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -17,29 +23,13 @@ class BurrowSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    user = serializers.SerializerMethodField(read_only=True)
-
-    def get_user(self, obj):
-        return obj.id
-
     class Meta:
         model = Post
         fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    post = PostSerializer()
 
     class Meta:
         model = Comment
-        fields = '__all__'
-        # fields = ['user', 'post', 'content', 'carrots']
-
-
-class TotalCarrotsSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = TotalCarrots
         fields = '__all__'

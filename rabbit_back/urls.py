@@ -22,14 +22,14 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from rest_framework import routers
-from rabbit.views import PostViewSet, UserViewSet, BurrowViewSet, CommentViewSet, TotalCarrotsViewSet
+from rabbit.views import PostViewSet, UserViewSet, BurrowViewSet, CommentViewSet, ProfileViewSet
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet, basename='user')
 router.register(r'posts', PostViewSet, basename='post')
 router.register(r'burrows', BurrowViewSet, basename='burrow')
 router.register(r'comments', CommentViewSet, basename='comment')
-router.register(r'total-carrots', TotalCarrotsViewSet, basename='carrot')
+router.register(r'profiles', ProfileViewSet, basename='profile')
 
 urlpatterns = [
 
