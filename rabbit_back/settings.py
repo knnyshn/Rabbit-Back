@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-stf=4jdulxw3%r=+4y8s7q-3xr!x49bry@2jl1y=5b!w3h*$^(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -71,18 +72,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'rabbit_back.wsgi.application'
 
+db_name = 'rabbit_back'
+user = 'rabbit_back_admin'
+password = 'password'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'rabbit_back',
-        'USER': 'rabbit_back_admin',
-        'PASSWORD': 'password',
-        'HOST': 'localhost'
-    }
+    'default':
+        dj_database_url.config(
+            default=f'postgres://{user}:{password}@localhost/{db_name}'
+        )
+        # {
+        #     'ENGINE': 'django.db.backends.postgresql',
+        #     'NAME': 'rabbit_back',
+        #     'USER': 'rabbit_back_admin',
+        #     'PASSWORD': 'password',
+        # }
 }
 
 
