@@ -41,8 +41,8 @@ class CommentSerializer(serializers.ModelSerializer):
 class PostSerializer(serializers.ModelSerializer):
 
     comments = CommentSerializer(read_only=True, many=True)
-    burrow = BurrowSerializer(read_only=True, many=False)
-    user = UserSerializer(read_only=True, many=False)
+    burrow = BurrowSerializer(read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Post
