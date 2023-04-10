@@ -12,6 +12,7 @@ User = get_user_model()
 
 
 class UserViewSet(viewsets.ModelViewSet):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
@@ -31,6 +32,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class BurrowViewSet(viewsets.ModelViewSet):
+  
     queryset = Burrow.objects.all()
     serializer_class = BurrowSerializer
 

@@ -30,12 +30,12 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['user'] = UserSerializer(instance.user.all(), many=True).data
-        response['post'] = PostSerializer(instance.user.all(), many=True).data
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     response['user'] = UserSerializer(instance.user.all(), many=True).data
+    #     response['post'] = PostSerializer(instance.user.all(), many=True).data
 
-        return response
+    #     return response
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -46,9 +46,9 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = '__all__'
 
-    def to_representation(self, instance):
-        response = super().to_representation(instance)
-        response['user'] = UserSerializer(instance.user.all(), many=True)
-        response['burrow'] = BurrowSerializer(instance.burrow.all(), many=True)
+    # def to_representation(self, instance):
+    #     response = super().to_representation(instance)
+    #     response['user'] = UserSerializer(instance.user.all(), many=True)
+    #     response['burrow'] = BurrowSerializer(instance.burrow.all(), many=True)
 
-        return response
+    #     return response

@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
-# Create your models here.
 
 
 class Profile(models.Model):
@@ -11,12 +10,15 @@ class Profile(models.Model):
 
 class Burrow(models.Model):
     name = models.CharField()
-
+  
     def __str__(self):
         return self.name
 
 
+
+
 class Post(models.Model):
+    
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='posts', default='')
     burrow = models.ForeignKey(
