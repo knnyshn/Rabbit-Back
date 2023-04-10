@@ -12,6 +12,9 @@ class Profile(models.Model):
 class Burrow(models.Model):
     name = models.CharField()
 
+    def __str__(self):
+        return self.name
+
 
 class Post(models.Model):
     user = models.ForeignKey(
@@ -21,6 +24,9 @@ class Post(models.Model):
     title = models.CharField()
     content = models.TextField()
     carrots = models.IntegerField()
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
