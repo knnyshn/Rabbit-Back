@@ -1,6 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Burrow, Post, Comment, TotalCarrots
+from .models import Burrow, Post, Comment, Profile
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['user', 'total_carrots']
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,27 +24,31 @@ class BurrowSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CommentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['user'] = UserSerializer(instance.user.all(), many=True).data
+        response['post'] = PostSerializer(instance.user.all(), many=True).data
+
+        return response
+
+
 class PostSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+
+    comments = CommentSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
         fields = '__all__'
 
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response['user'] = UserSerializer(instance.user.all(), many=True)
+        response['burrow'] = BurrowSerializer(instance.burrow.all(), many=True)
 
-class CommentSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-    post = PostSerializer()
-
-    class Meta:
-        model = Comment
-        fields = '__all__'
-        # fields = ['user', 'post', 'content', 'carrots']
-
-
-class TotalCarrotsSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
-
-    class Meta:
-        model = TotalCarrots
-        fields = '__all__'
+        return response
