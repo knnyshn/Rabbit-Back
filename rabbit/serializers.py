@@ -50,7 +50,7 @@ class PostSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         response = super().to_representation(instance)
-        response['user'] = UserSerializer(instance.user.all(), many=True)
-        response['burrow'] = BurrowSerializer(instance.burrow.all(), many=True)
+        response['user'] = UserSerializer(instance.user.username, many=True)
+        response['burrow'] = BurrowSerializer(instance.burrow.name, many=True)
 
         return response
