@@ -1,23 +1,34 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
 
-
-class User(models.Model):
-    username = models.CharField()
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, default='')
+    total_carrots = models.IntegerField(default=0)
 
 
 class Burrow(models.Model):
     name = models.CharField()
-    total_carrots = models.IntegerField()
+
+    def __str__(self):
+        return self.name
 
 
 class Post(models.Model):
+
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='posts')
+        User, on_delete=models.CASCADE, related_name='posts', default='')
+    burrow = models.ForeignKey(
+        Burrow, on_delete=models.CASCADE, related_name='posts', default='')
     title = models.CharField()
     content = models.TextField()
-    carrots = models.IntegerField()
+    carrots = models.IntegerField(default=0)
+
+   
+
+    def __str__(self):
+        return self.title
 
 
 class Comment(models.Model):
@@ -26,4 +37,4 @@ class Comment(models.Model):
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name='comments')
     content = models.TextField()
-    carrots = models.IntegerField()
+    carrots = models.IntegerField(default=0)

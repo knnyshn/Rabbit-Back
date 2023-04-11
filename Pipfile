@@ -7,6 +7,9 @@ name = "pypi"
 django = "*"
 psycopg2-binary = "*"
 djangorestframework-simplejwt = "*"
+gunicorn = "*"
+dj-database-url = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
