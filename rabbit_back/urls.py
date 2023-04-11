@@ -7,7 +7,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView,
 )
 from rest_framework import routers
-from rabbit.views import PostViewSet, UserViewSet, BurrowViewSet, CommentViewSet, ProfileViewSet
+from rabbit.views import PostViewSet, UserViewSet, BurrowViewSet, CommentViewSet, ProfileViewSet, create_user
 
 
 router = routers.DefaultRouter()
@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/login/', TokenObtainPairView.as_view(),
          name='token_obtain_pair'),
+    path('api/auth/signup/', create_user),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     # path('api-auth/', include('rest_framework.urls')),
