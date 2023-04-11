@@ -25,9 +25,7 @@ class Post(models.Model):
     content = models.TextField()
     carrots = models.IntegerField(default=0)
 
-    @property
-    def username(self):
-        return User.objects.get(id=self.user_id).username
+   
 
     def __str__(self):
         return self.title

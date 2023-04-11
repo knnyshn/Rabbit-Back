@@ -1,6 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from django.contrib.auth import get_user_model
 from .models import Burrow, Post, Comment, Profile
 from .serializers import UserSerializer, BurrowSerializer, PostSerializer, CommentSerializer, ProfileSerializer
@@ -32,7 +32,7 @@ class PostViewSet(viewsets.ModelViewSet):
 
 
 class BurrowViewSet(viewsets.ModelViewSet):
-  
+
     queryset = Burrow.objects.all()
     serializer_class = BurrowSerializer
 
@@ -40,3 +40,17 @@ class BurrowViewSet(viewsets.ModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+
+@api_view(['POST'])
+def create_user(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    if not username or not password:
+        return Response({'error': 'Username and password are required.'}, status=status.HTTP_400_BAD_REQUEST)
+    hashed_password = make_password(password)
+    try:
+        user = User.objects.create(username=username, password=hashed_password)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'success': f'User {username} created successfully.'}, status=status.HTTP_201_CREATED)
