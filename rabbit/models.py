@@ -25,11 +25,10 @@ class Post(models.Model):
     content = models.TextField()
     carrots = models.IntegerField(default=0)
 
-   
-
-    def __str__(self):
-        return self.title
-
+    # def __str__(self):
+    #     return self.title
+    def str(self):
+        return f"{self.burrow} by {self.user.username}"
 
 class Comment(models.Model):
     user = models.ForeignKey(
